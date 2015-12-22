@@ -4,6 +4,13 @@ Track your maintenance on your vehicle. (oil changes, brakes, windows, window wi
 
 # Tech
 
-+Node
-+Hapi
+* Node
+* Hapi
+
+## To be added
+
+* Postgres DB
+* ReactJS Front End
+* Gulp
+
 
