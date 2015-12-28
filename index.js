@@ -12,13 +12,13 @@ server.route({
   method: 'GET',
   path: '/',
   handler: function (request, reply){
-    return reply("hello world");
+    return reply("hello auto tracker.");
   }
 });
 
 
 server.start((err) => {
-  if(err) throw err;
+  if (err) throw err;
 
   console.log('Server running on port: ', server.info.uri);
 });
