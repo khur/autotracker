@@ -1,4 +1,6 @@
+const Path = require('path');
 const Hapi = require('hapi');
+const Hoek = require('hoek');
 
 const server = new Hapi.Server();
 
@@ -7,18 +9,25 @@ server.connection({
   port: 8080
 });
 
-
-server.route({
-  method: 'GET',
-  path: '/',
-  handler: function (request, reply){
-    return reply("hello auto tracker.");
+server.register(require('inert'), (err) => {
+  if(err) {
+    throw err;
   }
+
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: function (request, reply){
+      return reply.file('index.html');
+    }
+  });
+
+  server.start((err) => {
+    if (err) throw err;
+
+    console.log('Server running on port: ', server.info.uri);
+  });
+
 });
 
 
-server.start((err) => {
-  if (err) throw err;
-
-  console.log('Server running on port: ', server.info.uri);
-});
