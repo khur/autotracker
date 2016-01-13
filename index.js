@@ -1,12 +1,21 @@
+'use strict';
+
+// Dependencies 
 const Path = require('path');
 const Hapi = require('hapi');
 const Hoek = require('hoek');
+const Routes = require('./app/routes')
 
+// New server Start
 const server = new Hapi.Server();
 
+
+const port = 8080;
+const host = 'localhost';
+
 server.connection({
-  host: 'localhost',
-  port: 8080
+  host: host,
+  port: port
 });
 
 server.register(require('inert'), (err) => {
@@ -14,17 +23,10 @@ server.register(require('inert'), (err) => {
     throw err;
   }
 
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply){
-      return reply.file('index.html');
-    }
-  });
+  server.route(Routes);
 
   server.start((err) => {
     if (err) throw err;
-
     console.log('Server running on port: ', server.info.uri);
   });
 
