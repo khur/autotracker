@@ -9,7 +9,6 @@ const Routes = require('./app/routes')
 // New server Start
 const server = new Hapi.Server();
 
-
 const port = 8080;
 const host = 'localhost';
 
