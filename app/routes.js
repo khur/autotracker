@@ -1,3 +1,5 @@
+const api = require('./api');
+
 module.exports = [
 
     {
@@ -10,10 +12,20 @@ module.exports = [
 
     {
         method: 'GET',
-        path: '/{car}',
-        handler: (request, reply) => {
-            return reply('hello');
-        }
+        path: '/cars',
+        handler: api.cars.all
+    },
+
+    {
+        method: 'GET',
+        path: '/cars/{id}',
+        handler: api.cars.find
+    },
+
+    {
+        method: 'POST',
+        path: '/cars',
+        handler: api.cars.create
     }
 
 ];
