@@ -4,7 +4,8 @@
 const Path = require('path');
 const Hapi = require('hapi');
 const Hoek = require('hoek');
-const Routes = require('./app/routes')
+const Routes = require('./app/routes');
+const models = require('./models');
 
 // New server Start
 const server = new Hapi.Server();
@@ -17,18 +18,23 @@ server.connection({
   port: port
 });
 
-server.register(require('inert'), (err) => {
-  if(err) {
-    throw err;
-  }
+server.route(Routes);
 
-  server.route(Routes);
+models.sequelize.sync().then(function() {
 
-  server.start((err) => {
-    if (err) throw err;
-    console.log('Server running on port: ', server.info.uri);
+  server.register(require('inert'), (err) => {
+    if(err) {
+      throw err;
+    }
+
+    
+
+    server.start((err) => {
+      if (err) throw err;
+      console.log('Server running on port: ', server.info.uri);
+    });
+
   });
 
 });
-
 
