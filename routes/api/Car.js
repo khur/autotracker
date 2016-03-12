@@ -1,6 +1,6 @@
-var models = require('../models');
+var models = require('../../models');
 
-exports.cars = {
+exports.car = {
   all: function(request, reply) {
     models.Car.findAll()
       .then(function(cars) {
@@ -9,9 +9,6 @@ exports.cars = {
   },
 
   find: function(request, reply) {
-    // console.log("params", request.params);
-    // console.log("payload", request.payload);
-    // console.log("encode", encodeURIComponent(request.params.id))
     models.Car.findOne({
       where: {id: encodeURIComponent(request.params.id)}
     })
@@ -22,13 +19,22 @@ exports.cars = {
 
   create: function(request, reply) {
     models.Car
-      .build(request.payload)
-      .save()
+      .create(request.payload)
       .then(function(newCar) {
-        reply(newCar).code(202);
+        reply(newCar).code(201);
       }).catch(function(error) {
         console.log(error)
       })
+  },
+
+  destroy: function(request, reply) {
+
+    models.Car.destroy({
+      where: { 
+        id: encodeURIComponent(request.params.id)
+      }
+    })
+
   }
 
 };
