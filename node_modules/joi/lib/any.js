@@ -219,8 +219,6 @@ internals.Any.prototype.concat = function (schema) {
 
 internals.Any.prototype._test = function (name, arg, func) {
 
-    Hoek.assert(!this._flags.allowOnly, 'Cannot define rules when valid values specified');
-
     const obj = this.clone();
     obj._tests.push({ func, name, arg });
     return obj;
@@ -278,8 +276,6 @@ internals.Any.prototype.allow = function () {
 
 
 internals.Any.prototype.valid = internals.Any.prototype.only = internals.Any.prototype.equal = function () {
-
-    Hoek.assert(!this._tests.length, 'Cannot set valid values when rules specified');
 
     const obj = this.allow.apply(this, arguments);
     obj._flags.allowOnly = true;
@@ -769,10 +765,7 @@ internals.Set = function () {
 
 internals.Set.prototype.add = function (value, refs) {
 
-    Hoek.assert(value === null || value === undefined || value instanceof Date || Buffer.isBuffer(value) || Ref.isRef(value) || (typeof value !== 'function' && typeof value !== 'object'), 'Value cannot be an object or function');
-
-    if (typeof value !== 'function' &&
-        this.has(value, null, null, false)) {
+    if (!Ref.isRef(value) && this.has(value, null, null, false)) {
 
         return;
     }

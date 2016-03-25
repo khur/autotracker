@@ -19,7 +19,7 @@ server.connection({
 });
 
 // Taking from the route/index file
-for(let route in Routes){
+for (let route in Routes) {
   server.route(Routes[route]);  
 }
 
@@ -33,7 +33,7 @@ server.register(require('inert'), (err) => {
     server.start((err) => {
       if (err) throw err;
       console.log('Server running on port: ', server.info.uri);
-});
+    });
   });
 
 });
