@@ -1,17 +1,17 @@
 'use strict';
 
-// Dependencies 
-const Path = require('path');
-const Hapi = require('hapi');
-const Hoek = require('hoek');
-const Routes = require('./routes/index');
-const models = require('./models');
+// Dependencies
+const Path      = require('path');
+const Hapi      = require('hapi');
+const Hoek      = require('hoek');
+const Routes    = require('./routes/index');
+const models    = require('./models');
 
 // New server Start
-const server = new Hapi.Server();
+const server    = new Hapi.Server();
 
-const port = 8080;
-const host = 'localhost';
+const port      = 8080;
+const host      = 'localhost';
 
 server.connection({
   host: host,
@@ -19,10 +19,9 @@ server.connection({
 });
 
 // Taking from the route/index file
-for(var route in Routes){
-   server.route(Routes[route]);
+for(let route in Routes){
+  server.route(Routes[route]);  
 }
-
 
 
 server.register(require('inert'), (err) => {
@@ -37,4 +36,4 @@ server.register(require('inert'), (err) => {
 });
   });
 
-}); 
+});

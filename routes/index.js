@@ -1,8 +1,8 @@
-const userRoutes = require('./userRoutes');
-const carRoutes = require('./carRoutes');
+const userRoutes    = require('./userRoutes');
+const carRoutes     = require('./carRoutes');
 
 const routes = {
-    index:     {
+    index: {
         method: 'GET',
         path: '/',
         handler: (request, reply) => {
